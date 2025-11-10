@@ -12,12 +12,10 @@ import java.sql.SQLException;
 public class LoginController {
     private final LoginView view;
     private final Stage stage;
-    private final CustomerDAO customerDAO;
 
     public LoginController(LoginView view, Stage stage) {
         this.view = view;
         this.stage = stage;
-        this.customerDAO = new CustomerDAO(); // Instantiate CustomerDAO
     }
 
     /**
@@ -26,6 +24,7 @@ public class LoginController {
      * @param password The password entered by the user.
      */
     public void handleLogin(String username, String password) {
+        CustomerDAO customerDAO = new CustomerDAO();
         // For now, we'll simulate a successful login
         // In a real application, you would validate the credentials against a database
         System.out.println("Login attempt with username: " + username);
