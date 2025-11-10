@@ -7,29 +7,19 @@ import java.sql.SQLException;
 public class DatabaseUtil {
 
     /**
-     * Establishes a connection to the database using environment variables.
+     * Establishes a connection to the H2 in-memory database.
      * @return A Connection object.
      * @throws SQLException if a database access error occurs.
      */
     public static Connection getConnection() throws SQLException {
         try {
-            // Register the PostgreSQL driver
-            Class.forName("org.postgresql.Driver");
-
-            // Get database credentials from environment variables
-            String dbUrl = System.getenv("DB_URL");
-            String dbUser = System.getenv("DB_USER");
-            String dbPassword = System.getenv("DB_PASSWORD");
-
-            // Check if the environment variables are set
-            if (dbUrl == null || dbUser == null || dbPassword == null) {
-                throw new SQLException("Database credentials are not set in the environment variables (DB_URL, DB_USER, DB_PASSWORD)");
-            }
+            // Register the H2 driver
+            Class.forName("org.h2.Driver");
 
             // Get the connection from the driver manager
-            return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+            return DriverManager.getConnection("jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1");
         } catch (ClassNotFoundException e) {
-            throw new SQLException("PostgreSQL JDBC Driver not found", e);
+            throw new SQLException("H2 JDBC Driver not found", e);
         }
     }
 }
