@@ -1,1 +1,7 @@
-/home/user/banksystem/src/test/java/com/example/demo/DemoApplicationTests.java
+/home/user/banksystem/src/test/java/com/bankingsystem/util/DatabaseConnectionTest.java
+/home/user/banksystem/src/test/java/com/bankingsystem/model/ChequeAccountTest.java
+/home/user/banksystem/src/test/java/com/bankingsystem/model/TransactionTest.java
+/home/user/banksystem/src/test/java/com/bankingsystem/dao/AccountDAOTest.java
+/home/user/banksystem/src/test/java/com/bankingsystem/model/SavingsAccountTest.java
+/home/user/banksystem/src/test/java/com/bankingsystem/model/InvestmentAccountTest.java
+/home/user/banksystem/src/test/java/com/bankingsystem/model/CustomerTest.java

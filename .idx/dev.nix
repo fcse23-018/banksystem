@@ -9,7 +9,9 @@
     pkgs.maven
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    JAVA_HOME = "${pkgs.zulu17}";
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
@@ -17,7 +19,7 @@
       "google.gemini-cli-vscode-ide-companion"
     ];
     workspace = {
-      # Runs when a workspace is first created with this `dev.nix` file
+      # Runs when a workspace is first created with this \`dev.nix\` file
       onCreate = {
         install = "mvn clean install";
       };

@@ -13,6 +13,20 @@ import java.util.UUID;
 
 public class AccountDAO {
 
+    private Connection connection;
+
+    public AccountDAO() {
+        try {
+            this.connection = DatabaseUtil.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public AccountDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     /**
      * Retrieves all accounts for a given customer.
      * @param customerId The ID of the customer.
@@ -22,8 +36,7 @@ public class AccountDAO {
         List<Account> accounts = new ArrayList<>();
         String sql = "SELECT * FROM accounts WHERE owner_id = ?";
 
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setObject(1, customerId);
             ResultSet rs = stmt.executeQuery();

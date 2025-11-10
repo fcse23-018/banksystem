@@ -1,30 +1,13 @@
 package com.bankingsystem.util;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class DatabaseUtil {
 
-    private static final Properties properties = new Properties();
-
-    static {
-        // Load database configuration from config.properties
-        try (InputStream input = DatabaseUtil.class.getClassLoader().getResourceAsStream("config.properties")) {
-            if (input == null) {
-                System.out.println("Sorry, unable to find config.properties");
-            }
-            properties.load(input);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     /**
-     * Establishes a connection to the database.
+     * Establishes a connection to the database using environment variables.
      * @return A Connection object.
      * @throws SQLException if a database access error occurs.
      */
@@ -32,12 +15,19 @@ public class DatabaseUtil {
         try {
             // Register the PostgreSQL driver
             Class.forName("org.postgresql.Driver");
+
+            // Get database credentials from environment variables
+            String dbUrl = System.getenv("DB_URL");
+            String dbUser = System.getenv("DB_USER");
+            String dbPassword = System.getenv("DB_PASSWORD");
+
+            // Check if the environment variables are set
+            if (dbUrl == null || dbUser == null || dbPassword == null) {
+                throw new SQLException("Database credentials are not set in the environment variables (DB_URL, DB_USER, DB_PASSWORD)");
+            }
+
             // Get the connection from the driver manager
-            return DriverManager.getConnection(
-                    properties.getProperty("jdbc.url"),
-                    properties.getProperty("jdbc.user"),
-                    properties.getProperty("jdbc.password")
-            );
+            return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
         } catch (ClassNotFoundException e) {
             throw new SQLException("PostgreSQL JDBC Driver not found", e);
         }

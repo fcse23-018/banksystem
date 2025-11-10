@@ -5,7 +5,6 @@ com/bankingsystem/view/WithdrawView$2.class
 com/bankingsystem/controller/TransactionController.class
 com/bankingsystem/controller/WithdrawController.class
 com/bankingsystem/model/InvestmentAccount.class
-com/bankingsystem/testing/DatabaseConnectionTest.class
 com/bankingsystem/view/TransferView.class
 com/bankingsystem/controller/TransferController.class
 com/bankingsystem/dao/TransactionDAO.class
