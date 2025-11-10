@@ -27,11 +27,12 @@
             <version>17.0.0.1</version>
         </dependency>
 
-        <!-- Supabase/PostgreSQL Driver -->
+        <!-- H2 Database -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.23</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.214</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- JUnit 5 -->

@@ -1,6 +1,5 @@
 package com.bankingsystem.util;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +9,6 @@ import java.sql.SQLException;
 public class DatabaseConnectionTest {
 
     @Test
-    @Disabled("Disabling for build verification without database")
     public void testGetConnection() {
         Connection connection = null;
         try {
