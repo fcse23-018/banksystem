@@ -1,8 +1,8 @@
-package com.bankingsystem.controller;
+package controller;
 
-import com.bankingsystem.dao.AccountDAO;
-import com.bankingsystem.model.Account;
-import com.bankingsystem.view.DashboardView;
+import dao.AccountDAO;
+import model.Account;
+import view.DashboardView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;

@@ -1,8 +1,8 @@
-package com.bankingsystem.controller;
+package controller;
 
-import com.bankingsystem.dao.CustomerDAO;
-import com.bankingsystem.view.DashboardView;
-import com.bankingsystem.view.LoginView;
+import dao.CustomerDAO;
+import view.DashboardView;
+import view.LoginView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -25,7 +25,7 @@ public class LoginController {
      */
     public void handleLogin(String username, String password) {
         CustomerDAO customerDAO = new CustomerDAO();
-        // For now, we'll simulate a successful login
+        // For now, we\'ll simulate a successful login
         // In a real application, you would validate the credentials against a database
         System.out.println("Login attempt with username: " + username);
         // if (customerDAO.validate(username, password)) { // Uncomment when DAO is implemented
