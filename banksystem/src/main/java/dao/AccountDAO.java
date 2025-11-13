@@ -1,7 +1,7 @@
-package com.bankingsystem.dao;
+package dao;
 
-import com.bankingsystem.model.Account;
-import com.bankingsystem.util.DatabaseUtil;
+import model.Account;
+import util.DatabaseUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

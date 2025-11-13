@@ -1,4 +1,4 @@
-package com.bankingsystem.model;
+package model;
 
 public class InsufficientFundsException extends Exception {
     public InsufficientFundsException(String message) {
