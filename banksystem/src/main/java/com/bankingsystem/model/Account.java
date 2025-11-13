@@ -1,45 +1,43 @@
 package com.bankingsystem.model;
 
-import java.util.UUID;
+public class Account {
 
-public abstract class Account {
-    private long accountNumber;
+    private int id;
+    private int customerId;
+    private String accountType;
     private double balance;
-    private AccountType accountType;
-    private UUID ownerId;
-    private AccountState state;
+    private String status;
 
-    public enum AccountType {
-        SAVINGS, INVESTMENT, CHEQUE
-    }
-
-    public enum AccountState {
-        NEW, ACTIVE, FROZEN, CLOSED
-    }
-
-    public Account(AccountType accountType, UUID ownerId) {
+    public Account(int id, int customerId, String accountType, double balance, String status) {
+        this.id = id;
+        this.customerId = customerId;
         this.accountType = accountType;
-        this.ownerId = ownerId;
-        this.state = AccountState.NEW;
-        this.balance = 0.0;
+        this.balance = balance;
+        this.status = status;
     }
 
-    public abstract void withdraw(double amount) throws InsufficientFundsException;
-
-    public void deposit(double amount) {
-        if (amount > 0) {
-            this.balance += amount;
-        }
+    public int getId() {
+        return id;
     }
 
-    // Getters and Setters
-
-    public long getAccountNumber() {
-        return accountNumber;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setAccountNumber(long accountNumber) {
-        this.accountNumber = accountNumber;
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 
     public double getBalance() {
@@ -50,27 +48,11 @@ public abstract class Account {
         this.balance = balance;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
-
-    public UUID getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(UUID ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public AccountState getState() {
-        return state;
-    }
-
-    public void setState(AccountState state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
