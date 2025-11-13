@@ -1,4 +1,4 @@
-
+package com.bankingsystem.model;
 
 import java.util.UUID;
 
