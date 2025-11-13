@@ -1,7 +1,7 @@
-package controller;
+package com.bankingsystem.controller;
 
-import dao.AccountDAO;
-import view.DepositView;
+import com.bankingsystem.dao.AccountDAO;
+import com.bankingsystem.view.DepositView;
 import javafx.scene.control.Alert;
 
 public class DepositController {

@@ -1,8 +1,8 @@
-package controller;
+package com.bankingsystem.controller;
 
-import dao.CustomerDAO;
-import view.DashboardView;
-import view.LoginView;
+import com.bankingsystem.dao.CustomerDAO;
+import com.bankingsystem.view.DashboardView;
+import com.bankingsystem.view.LoginView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
