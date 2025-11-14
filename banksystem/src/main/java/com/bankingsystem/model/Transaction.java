@@ -15,6 +15,18 @@ public class Transaction {
     private TransactionType transactionType;
     private double amount;
     private Timestamp transactionDate;
+    private String type;
+    private String description;
+
+    public Transaction(long transactionId, long accountId, String type, double amount, Timestamp transactionDate, String description) {
+        this.transactionId = transactionId;
+        this.accountId = accountId;
+        this.type = type;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+        this.description = description;
+    }
+
 
     // Getters and Setters
 
@@ -56,5 +68,21 @@ public class Transaction {
 
     public void setTransactionDate(Timestamp transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

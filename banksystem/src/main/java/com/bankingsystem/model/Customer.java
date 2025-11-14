@@ -4,29 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
-    private String customerID;
+    private int id;
     private String firstName;
     private String surname;
     private String address;
+    private String idNumber;
+    private String status;
     private String password; // For authentication
     private List<Account> accounts;
 
-    public Customer(String firstName, String surname, String address, String password) {
+    public Customer(String firstName, String surname, String address, String idNumber, String password) {
         this.firstName = firstName;
         this.surname = surname;
         this.address = address;
+        this.idNumber = idNumber;
         this.password = password;
         this.accounts = new ArrayList<>();
     }
 
-    // Getters and Setters
-
-    public String getCustomerID() {
-        return customerID;
+    public Customer(int id, String firstName, String surname, String address, String idNumber, String status, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.address = address;
+        this.idNumber = idNumber;
+        this.status = status;
+        this.password = password;
+        this.accounts = new ArrayList<>();
     }
 
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
+
+    // Getters and Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -51,6 +66,22 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getPassword() {
