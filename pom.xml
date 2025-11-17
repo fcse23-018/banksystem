@@ -1,31 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.botswanabank.project</groupId>
-    <artifactId>secure-banking-app</artifactId>
+    <groupId>bw.co.pulabank</groupId>
+    <artifactId>pula-banking-system</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Secure Banking Application</name>
-    <description>A modern and secure desktop banking application for Botswana.</description>
+    <name>Pula Banking System - Botswana</name>
 
     <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>21</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <javafx.version>21</javafx.version>
-        <jfoenix.version>9.0.10</jfoenix.version>
-        <supabase.version>0.6.0</supabase.version> <!-- Using supabase-kt as a robust client -->
-        <lombok.version>1.18.30</lombok.version>
-        <jackson.version>2.15.2</jackson.version>
-        <fontawesomefx.version>9.1.2</fontawesomefx.version>
+        <javafx.version>21.0.2</javafx.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+        <main.class>bw.co.pulabank.MainApp</main.class>
     </properties>
 
     <dependencies>
-        <!-- JavaFX Core -->
+
+        <!-- ==================== JavaFX ==================== -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -38,79 +37,148 @@
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
+            <artifactId>javafx-web</artifactId>
             <version>${javafx.version}</version>
         </dependency>
 
-        <!-- UI/UX Enhancements -->
+        <!-- ==================== Modern UI Libraries (Best Looking in 2025) ==================== -->
+        <!-- MaterialFX - True Material Design 3 for JavaFX -->
+        <dependency>
+            <groupId>com.github.devjavasoft</groupId>
+            <artifactId>materialfx</artifactId>
+            <version>11.17.0</version>
+        </dependency>
+
+        <!-- JFoenix - Beautiful controls & animations -->
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
-            <version>${jfoenix.version}</version>
+            <version>9.0.10</version>
         </dependency>
+
+        <!-- ControlsFX - Notifications, dialogs, etc. -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.0</version>
+        </dependency>
+
+        <!-- FontAwesomeFX / Icons -->
         <dependency>
             <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-fontawesome</artifactId>
-            <version>${fontawesomefx.version}</version>
+            <artifactId>fontawesomefx-materialdesignfont</artifactId>
+            <version>1.7.22-4</version>
         </dependency>
 
-        <!-- Backend & Database -->
+        <!-- ==================== Supabase Official Java Client ==================== -->
         <dependency>
-            <groupId>io.github.jan-tenowiecki</groupId>
-            <artifactId>supabase-kt</artifactId>
-            <version>${supabase.version}</version>
+            <groupId>io.supabase</groupId>
+            <artifactId>supabase-java</artifactId>
+            <version>2.2.0</version>
         </dependency>
 
-        <!-- Utilities -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- Jackson for JSON (used by Supabase client) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${jackson.version}</version>
+            <version>2.17.2</version>
         </dependency>
 
-        <!-- For PDF/Excel Reporting (optional, can be expanded) -->
+        <!-- ==================== Utilities ==================== -->
         <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-            <version>2.0.27</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.13</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>5.2.3</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.13</version>
         </dependency>
+
+        <!-- Bcrypt for password hashing (if not using Supabase Auth) -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.12.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
+
+            <!-- Compiler Plugin (Java 21) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>21</source>
+                    <target>21</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.34</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
+            <!-- JavaFX Maven Plugin - Run with mvn javafx:run -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
+                <version>${javafx.maven.plugin.version}</version>
                 <configuration>
-                    <mainClass>com.botswanabank.project.MainApp</mainClass>
+                    <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
+
+            <!-- Shade Plugin - Create fat JAR (optional, for distribution) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>shade</goal></goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${main.class}</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
+
 </project>
