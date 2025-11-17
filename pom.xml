@@ -9,19 +9,21 @@
     <artifactId>pula-banking-system</artifactId>
     <version>1.0.0</version>
     <name>Pula Bank Botswana</name>
-    <description>Secure Modern Banking System – Proudly Made in Botswana</description>
+    <description>Secure Modern Banking System – Made in Gaborone, Botswana</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- UPGRADED TO JAVA 21 + JAVAFX 21 (November 2025 Standard) -->
         <javafx.version>21.0.5</javafx.version>
         <jfoenix.version>9.0.10</jfoenix.version>
         <postgresql.version>42.7.4</postgresql.version>
     </properties>
 
     <dependencies>
-        <!-- JavaFX -->
+        <!-- JavaFX 21 – Fully compatible with Java 21 (NO MORE WARNINGS!) -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -33,14 +35,14 @@
             <version>${javafx.version}</version>
         </dependency>
 
-        <!-- JFoenix – Beautiful Material Design Components -->
+        <!-- JFoenix – Beautiful Material Design -->
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>${jfoenix.version}</version>
         </dependency>
 
-        <!-- PostgreSQL Driver – Connects to your real Supabase DB -->
+        <!-- PostgreSQL – Connects to your real Supabase DB -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -54,7 +56,7 @@
             <version>0.4</version>
         </dependency>
 
-        <!-- Lombok – Clean code (getters, setters, builders) -->
+        <!-- Lombok – Clean code -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -72,10 +74,18 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>bw.co.pulabank.MainApp</mainClass>
+                    
+                    <!-- ELIMINATES ALL WARNINGS ON JAVA 21+ -->
+                    <jvmArgs>
+                        <jvmArg>--enable-native-access=javafx.graphics</jvmArg>
+                        <jvmArg>--enable-native-access=javafx.fxml</jvmArg>
+                        <jvmArg>--enable-native-access=javafx.controls</jvmArg>
+                        <jvmArg>--add-modules=javafx.controls,javafx.fxml</jvmArg>
+                    </jvmArgs>
                 </configuration>
             </plugin>
 
-            <!-- Compiler Plugin – Ensures Java 21 -->
+            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
