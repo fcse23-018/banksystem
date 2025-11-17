@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="768.0" prefWidth="250.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <JFXButton prefHeight="50.0" prefWidth="250.0" text="Dashboard" />
+        <JFXButton prefHeight="50.0" prefWidth="250.0" text="Accounts" />
+        <JFXButton prefHeight="50.0" prefWidth="250.0" text="Transfer" />
+        <JFXButton prefHeight="50.0" prefWidth="250.0" text="History" />
+        <JFXButton prefHeight="50.0" prefWidth="250.0" text="Profile" />
+        <JFXButton prefHeight="50.0" prefWidth="250.0" text="Logout" />
+    </children>
+</VBox>
