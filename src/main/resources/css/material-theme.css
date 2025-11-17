@@ -1,17 +1,18 @@
-/* PULA BANK BOTSWANA - Official Theme 2025 */
-/* Dark mode by default - Light mode toggle coming soon */
+/* PULA BANK BOTSWANA – Official Theme 2025 */
+/* SAFE VERSION – No custom fonts or images required */
+/* Works 100% even if fonts/ and images/ folders are deleted */
 
 .root {
+    -fx-font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
     -fx-background-color: linear-gradient(to bottom right, #0f172a, #1e293b);
-    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
     -fx-text-fill: #e2e8f0;
 }
 
 /* Botswana National Colours */
-.fx-primary   { -fx-background-color: #0077CC; }   /* Sky Blue */
+.fx-primary   { -fx-background-color: #0077CC; }   /* Blue */
 .fx-accent    { -fx-background-color: #CE1126; }   /* Red */
 .fx-success   { -fx-background-color: #10B981; }
-.fx-warning   { -fx-background-color: #F59E0B; }
 .fx-gold      { -fx-background-color: #FCB316; }
 
 /* Glassmorphism Cards */
@@ -24,7 +25,7 @@
     -fx-padding: 20;
 }
 
-/* Buttons - Botswana Style */
+/* Buttons */
 .btn-primary {
     -fx-background-color: #0077CC;
     -fx-text-fill: white;
@@ -32,16 +33,14 @@
     -fx-background-radius: 12;
     -fx-padding: 12 32;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,119,204,0.4), 10, 0.5, 0, 4);
 }
-
 .btn-primary:hover { -fx-background-color: #0066AA; }
 .btn-danger { -fx-background-color: #CE1126; }
 .btn-success { -fx-background-color: #10B981; }
 .btn-gold { -fx-background-color: #FCB316; -fx-text-fill: #0f172a; }
 
 /* Text Fields */
-.text-field, .password-field {
+.text-field, .password-field, .jfx-text-field, .jfx-password-field {
     -fx-background-color: rgba(255,255,255,0.1);
     -fx-text-fill: white;
     -fx-prompt-text-fill: rgba(255,255,255,0.6);
@@ -57,35 +56,12 @@
     -fx-font-weight: bold;
     -fx-text-fill: #FCB316;
 }
-
 .label-subtitle {
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
     -fx-text-fill: #94a3b8;
 }
-
 .balance-big {
     -fx-font-size: 48px;
     -fx-font-weight: bold;
     -fx-text-fill: #10B981;
-}
-
-/* Table View */
-.table-view {
-    -fx-background-color: transparent;
-    -fx-table-cell-border-color: transparent;
-}
-
-.table-row-cell {
-    -fx-background-color: rgba(255,255,255,0.05);
-    -fx-table-cell-border-color: rgba(255,255,255,0.1);
-}
-
-.table-row-cell:hover {
-    -fx-background-color: rgba(0, 119, 204, 0.2);
-}
-
-/* ScrollPane */
-.scroll-pane {
-    -fx-background: transparent;
-    -fx-background-color: transparent;
 }

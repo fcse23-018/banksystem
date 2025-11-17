@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
 
 <StackPane fx:controller="bw.co.pulabank.controller.LoginController"
-           xmlns:fx="http://javafx.com/fxml" alignment="CENTER" stylesheets="@/css/material-theme.css">
+           xmlns:fx="http://javafx.com/fxml" alignment="CENTER"
+           stylesheets="@/css/material-theme.css">
 
     <VBox spacing="25" alignment="CENTER" maxWidth="420" styleClass="glass-card">
         <padding>
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
 
-        <!-- Logo -->
-        <ImageView fitHeight="100" fitWidth="100">
-            <image>
-                <Image url="@/images/logo.png"/>
-            </image>
-        </ImageView>
-
-        <Label text="Pula Bank Botswana" styleClass="label-title" alignment="CENTER"/>
-
-        <Label text="Secure Banking • Made in Botswana" styleClass="label-subtitle" alignment="CENTER"/>
+        <!-- TEXT LOGO – Works perfectly even if images folder is deleted -->
+        <VBox spacing="8" alignment="CENTER">
+            <Label text="PULA BANK" 
+                   style="-fx-font-size: 52; -fx-font-weight: bold; -fx-text-fill: #FCB316;"/>
+            <Label text="Botswana" 
+                   style="-fx-font-size: 28; -fx-text-fill: #0077CC; -fx-font-weight: bold;"/>
+            <Label text="Secure • Modern • Proudly Batswana" 
+                   style="-fx-font-size: 16; -fx-text-fill: #94a3b8;"/>
+        </VBox>
 
         <JFXTextField fx:id="emailField" promptText="Email Address" prefHeight="50"/>
         <JFXPasswordField fx:id="passwordField" promptText="Password" prefHeight="50"/>
 
-        <JFXButton text="LOGIN" styleClass="btn-primary" onAction="#handleLogin" prefWidth="Infinity" prefHeight="55">
+        <JFXButton text="LOGIN" styleClass="btn-primary" onAction="#handleLogin"
+                   prefWidth="Infinity" prefHeight="55">
             <font>
                 <Font size="18"/>
             </font>
         </JFXButton>
 
-        <Label text="New customer? Register at any branch" styleClass="label-subtitle"/>
+        <Label text="New customer? Register at any branch" 
+               styleClass="label-subtitle" alignment="CENTER"/>
     </VBox>
 </StackPane>
