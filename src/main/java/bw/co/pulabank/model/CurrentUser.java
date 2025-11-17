@@ -1,13 +1,17 @@
 package bw.co.pulabank.model;
 
+import lombok.*;
+
+@Getter @Setter @Builder
+@NoArgsConstructor @AllArgsConstructor
 public class CurrentUser {
-    private static Customer customer;
+    private String email;
+    private UserRole role;
+    private Customer customer;
+    private String staffName;
+    private String sessionToken;
 
-    public static Customer getCustomer() {
-        return customer;
-    }
-
-    public static void setCustomer(Customer customer) {
-        CurrentUser.customer = customer;
-    }
+    public boolean isCustomer() { return role == UserRole.CUSTOMER; }
+    public boolean isStaff() { return role.isStaff(); }
+    public boolean canApprove() { return role.canApproveAccounts(); }
 }

@@ -1,28 +1,87 @@
 package bw.co.pulabank.service;
 
-import bw.co.pulabank.config.SupabaseClient;
-import bw.co.pulabank.model.User;
-import bw.co.pulabank.model.UserRole;
-import io.supabase.client.rpc.RpcBuilder;
-import org.mindrot.jbcrypt.BCrypt;
+import bw.co.pulabank.model.*;
+import bw.co.pulabank.util.DatabaseUtil;
+import bw.co.pulabank.util.PasswordUtil;
+
+import java.sql.*;
 
 public class AuthService {
 
-    public User login(String username, String password) throws Exception {
-        // This is a simplified login logic.
-        // In a real application, you would query the database to find the user.
+    private static CurrentUser currentUser;
 
-        // As an example, we'll create a dummy user. 
-        // Replace this with your actual database query.
-        User user = new User();
-        user.setUsername("testuser");
-        // Hashed password for "password"
-        user.setPassword("$2a$10$8.j9A3.FFbIm0v/j3j5m8uY/3.d27j3fP6YqjaqB.X5aZbL3nOD.O");
-        user.setRole(UserRole.CUSTOMER);
+    public boolean login(String email, String password) {
+        String sql = "SELECT c.*, s.role, s.full_name FROM customers c " +
+                     "LEFT JOIN staff s ON c.email = s.email WHERE c.email = ?";
 
-        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-            return user;
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next() && PasswordUtil.check(password, rs.getString("password_hash"))) {
+                UserRole role = rs.getString("role") != null ?
+                        UserRole.valueOf(rs.getString("role")) : UserRole.CUSTOMER;
+
+                CurrentUser.CurrentUserBuilder builder = CurrentUser.builder()
+                        .email(email)
+                        .role(role);
+
+                if (role == UserRole.CUSTOMER) {
+                    Customer customer = Customer.builder()
+                            .id(rs.getObject("id", java.util.UUID.class))
+                            .firstName(rs.getString("first_name"))
+                            .surname(rs.getString("surname"))
+                            .email(email)
+                            .customerType(CustomerType.valueOf(rs.getString("customer_type")))
+                            .status(CustomerStatus.valueOf(rs.getString("status")))
+                            .build();
+                    builder.customer(customer);
+                } else {
+                    builder.staffName(rs.getString("full_name"));
+                }
+
+                currentUser = builder.build();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+        return false;
     }
+
+    public boolean register(Customer customer, String password) {
+        String sql = "INSERT INTO customers (id, first_name, surname, email, password_hash, " +
+                     "omang, address, customer_type, phone, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            UUID id = UUID.randomUUID();
+            pstmt.setObject(1, id);
+            pstmt.setString(2, customer.getFirstName());
+            pstmt.setString(3, customer.getSurname());
+            pstmt.setString(4, customer.getEmail());
+            pstmt.setString(5, PasswordUtil.hash(password));
+            pstmt.setString(6, customer.getOmang());
+            pstmt.setString(7, customer.getAddress());
+            pstmt.setString(8, customer.getCustomerType().name());
+            pstmt.setString(9, customer.getPhone());
+            pstmt.setString(10, CustomerStatus.PENDING.name());
+
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void logout() {
+        currentUser = null;
+    }
+
+    public CurrentUser getCurrentUser() { return currentUser; }
+    public boolean isLoggedIn() { return currentUser != null; }
 }

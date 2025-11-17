@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox fx:controller="bw.co.pulabank.controller.TransferController"
+      xmlns:fx="http://javafx.com/fxml" spacing="30" alignment="CENTER" style="-fx-padding: 50;"
+      stylesheets="@/css/material-theme.css">
+
+    <Label text="Transfer Funds" styleClass="label-title" textFill="#FCB316"/>
+
+    <VBox styleClass="glass-card" spacing="25" prefWidth="500">
+        <Label text="From Account" styleClass="label-subtitle"/>
+        <JFXTextField fx:id="fromAccountField" editable="false" prefHeight="55" style="-fx-font-size: 18;"/>
+
+        <Label text="To Account Number" styleClass="label-subtitle"/>
+        <JFXTextField fx:id="toAccountField" promptText="Enter recipient account number" prefHeight="55"/>
+
+        <Label text="Amount (BWP)" styleClass="label-subtitle"/>
+        <JFXTextField fx:id="amountField" promptText="0.00" prefHeight="55"/>
+
+        <Label text="Reference (Optional)" styleClass="label-subtitle"/>
+        <JFXTextField fx:id="referenceField" promptText="e.g. School fees" prefHeight="55"/>
+
+        <HBox spacing="20" alignment="CENTER">
+            <JFXButton text="Transfer Now" styleClass="btn-primary" prefWidth="200" prefHeight="60"
+                       onAction="#handleTransfer"/>
+            <JFXButton text="Cancel" styleClass="btn-danger" prefWidth="150" prefHeight="60"
+                       onAction="#handleCancel"/>
+        </HBox>
+
+        <Label fx:id="statusLabel" text="" alignment="CENTER" style="-fx-font-size: 16;"/>
+    </VBox>
+
+    <!-- Success Animation Placeholder -->
+    <Label fx:id="successLabel" visible="false" text="Transfer Successful!" 
+           style="-fx-text-fill: #10B981; -fx-font-size: 28; -fx-font-weight: bold;"/>
+</VBox>

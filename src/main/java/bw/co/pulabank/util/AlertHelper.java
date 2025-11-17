@@ -1,0 +1,32 @@
+package bw.co.pulabank.util;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
+
+public class AlertHelper {
+    public static void showSuccess(String header, String content) {
+        show(Alert.AlertType.INFORMATION, "Success", header, content);
+    }
+
+    public static void showError(String header, String content) {
+        show(Alert.AlertType.ERROR, "Error", header, content);
+    }
+
+    public static boolean confirm(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Action");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+    }
+
+    private static void show(Alert.AlertType type, String title, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}
