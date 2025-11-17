@@ -4,43 +4,41 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Pula Bank Botswana – Secure Database Connection
+ * Uses config.properties – NO PASSWORD IN CODE!
+ * Updated: 17 November 2025, 03:42 PM CAT – Gaborone
+ */
 public class DatabaseUtil {
 
-    // YOUR REAL SUPABASE CONNECTION STRING (Botswana project)
-    private static final String SUPABASE_URL = "jdbc:postgresql://db.vgssxkidvqovqebkobvp.supabase.co:5432/postgres";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "@DNkudumatse1997";  // Change this later to env var!
+    // Values loaded securely from config.properties
+    private static final String DB_URL      = Config.get("db.url");
+    private static final String DB_USERNAME = Config.get("db.username");
+    private static final String DB_PASSWORD = Config.get("db.password");
 
-    // Optional: Use environment variables (recommended for production)
-    static {
-        String envUrl = System.getenv("SUPABASE_JDBC_URL");
-        String envPass = System.getenv("SUPABASE_PASSWORD");
-        if (envUrl != null && envPass != null) {
-            // Override with env vars if set
-            java.util.Properties props = System.getProperties();
-            props.setProperty("SUPABASE_JDBC_URL", envUrl);
-            props.setProperty("SUPABASE_PASSWORD", envPass);
-        }
-    }
-
+    /**
+     * Returns a live connection to your real Supabase PostgreSQL database
+     */
     public static Connection getConnection() throws SQLException {
         try {
-            // PostgreSQL driver is auto-loaded in Java 21+
-            String url = System.getProperty("SUPABASE_JDBC_URL", SUPABASE_URL);
-            String pass = System.getProperty("SUPABASE_PASSWORD", PASSWORD);
-
-            return DriverManager.getConnection(url, USERNAME, pass);
+            // PostgreSQL driver auto-loaded in Java 21+
+            return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
         } catch (Exception e) {
-            throw new SQLException("Failed to connect to Supabase PostgreSQL", e);
+            throw new SQLException("Failed to connect to Pula Bank Supabase database", e);
         }
     }
 
-    // Test connection (run this once)
+    // Test it anytime – run this main method
     public static void main(String[] args) {
         try (Connection conn = getConnection()) {
-            System.out.println("Connected to Pula Bank Supabase DB successfully!");
-            System.out.println("Database: " + conn.getMetaData().getDatabaseProductName());
+            System.out.println("PULA BANK BOTSWANA – DATABASE CONNECTED SUCCESSFULLY!");
+            System.out.println("Server: " + conn.getMetaData().getDatabaseProductName());
+            System.out.println("URL: " + DB_URL);
+            System.out.println("Connected as: " + DB_USERNAME);
+            System.out.println("Time: " + java.time.LocalDateTime.now());
+            System.out.println("Pula! Your bank is LIVE in Gaborone!");
         } catch (Exception e) {
+            System.err.println("Connection failed – check config.properties");
             e.printStackTrace();
         }
     }
