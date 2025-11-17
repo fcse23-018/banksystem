@@ -2,7 +2,7 @@ package bw.co.pulabank.config;
 
 import io.supabase.client.SupabaseClient;
 
-public class SupabaseClient {
+public class SupabaseClientManager {
     private static SupabaseClient instance;
 
     public static void initialize(String url, String key) {

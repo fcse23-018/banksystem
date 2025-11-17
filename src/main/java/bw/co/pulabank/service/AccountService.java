@@ -12,7 +12,10 @@ public class AccountService {
 
     public List<Account> getCustomerAccounts(UUID customerId) {
         List<Account> accounts = new ArrayList<>();
-        String sql = "SELECT * FROM accounts WHERE customer_id = ?";
+        if (customerId == null) {
+            return accounts;
+        }
+        String sql = "SELECT * FROM accounts WHERE customer_id = ? AND status != 'CLOSED'";
 
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -27,11 +30,14 @@ public class AccountService {
                         .accountType(AccountType.valueOf(rs.getString("account_type")))
                         .balance(rs.getDouble("balance"))
                         .status(AccountStatus.valueOf(rs.getString("status")))
-                        .openedDate(rs.getTimestamp("opened_date").toLocalDateTime())
+                        .openedAt(rs.getTimestamp("opened_at") != null ? 
+                                 rs.getTimestamp("opened_at").toLocalDateTime() : null)
                         .build();
                 accounts.add(acc);
             }
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { 
+            e.printStackTrace();
+        }
         return accounts;
     }
 

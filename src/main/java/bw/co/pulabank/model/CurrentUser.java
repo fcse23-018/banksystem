@@ -14,4 +14,5 @@ public class CurrentUser {
     public boolean isCustomer() { return role == UserRole.CUSTOMER; }
     public boolean isStaff() { return role.isStaff(); }
     public boolean canApprove() { return role.canApproveAccounts(); }
+    public boolean canGenerateReports() { return role.canGenerateReports(); }
 }

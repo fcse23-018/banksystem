@@ -1,6 +1,6 @@
 package bw.co.pulabank.controller;
 
-import bw.co.pulabank.model.User;
+import bw.co.pulabank.model.CurrentUser;
 import bw.co.pulabank.model.UserRole;
 import bw.co.pulabank.service.AuthService;
 import javafx.fxml.FXML;
@@ -39,10 +39,9 @@ public class LoginController {
         }
 
         try {
-            User user = authService.login(username, password);
-            if (user != null) {
-                // Navigate to the appropriate dashboard
-                navigateToDashboard(user.getRole());
+            if (authService.login(username, password)) {
+                CurrentUser currentUser = authService.getCurrentUser();
+                navigateToDashboard(currentUser.getRole());
             } else {
                 errorText.setText("Invalid username or password.");
             }
@@ -56,9 +55,9 @@ public class LoginController {
         try {
             String fxmlPath = "";
             if (role == UserRole.CUSTOMER) {
-                fxmlPath = "/fxml/CustomerDashboard.fxml";
-            } else if (role == UserRole.STAFF) {
-                fxmlPath = "/fxml/StaffDashboard.fxml";
+                fxmlPath = "/fxml/customer-dashboard.fxml";
+            } else if (role.isStaff()) {
+                fxmlPath = "/fxml/staff-dashboard.fxml";
             }
 
             Parent dashboard = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));

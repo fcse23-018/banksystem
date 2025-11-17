@@ -13,6 +13,9 @@ public class SceneManager {
     }
 
     public static void loadScene(String fxmlPath, String title) {
+        if (primaryStage == null) {
+            throw new IllegalStateException("Stage not initialized. Call setStage() first.");
+        }
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource(fxmlPath));
             Scene scene = new Scene(loader.load());
