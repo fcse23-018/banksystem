@@ -9,54 +9,66 @@
     <artifactId>pula-banking-system</artifactId>
     <version>1.0.0</version>
     <name>Pula Bank Botswana</name>
-    <description>Secure Modern Banking System – Made in Gaborone, Botswana</description>
+    <description>Secure Modern Banking System – Made in Gaborone, Botswana • November 2025</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
-        <!-- UPGRADED TO JAVA 21 + JAVAFX 21 (November 2025 Standard) -->
         <javafx.version>21.0.5</javafx.version>
         <jfoenix.version>9.0.10</jfoenix.version>
         <postgresql.version>42.7.4</postgresql.version>
     </properties>
 
     <dependencies>
-        <!-- JavaFX 21 – Fully compatible with Java 21 (NO MORE WARNINGS!) -->
+        <!-- ===== JAVAFX 21 – WINDOWS-SPECIFIC (THIS FIXES EVERYTHING!) ===== -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
+            <classifier>win</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
         </dependency>
 
-        <!-- JFoenix – Beautiful Material Design -->
+        <!-- JFoenix – Material Design Components -->
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>${jfoenix.version}</version>
         </dependency>
 
-        <!-- PostgreSQL – Connects to your real Supabase DB -->
+        <!-- PostgreSQL – Real Supabase Connection -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
 
-        <!-- BCrypt – Secure password hashing -->
+        <!-- BCrypt – Secure Password Hashing -->
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
         </dependency>
 
-        <!-- Lombok – Clean code -->
+        <!-- Lombok – Clean Code -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -74,12 +86,9 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>bw.co.pulabank.MainApp</mainClass>
-                    
-                    <!-- ELIMINATES ALL WARNINGS ON JAVA 21+ -->
                     <jvmArgs>
-                        <jvmArg>--enable-native-access=javafx.graphics</jvmArg>
-                        <jvmArg>--enable-native-access=javafx.fxml</jvmArg>
-                        <jvmArg>--enable-native-access=javafx.controls</jvmArg>
+                        <!-- Eliminate all Java 21+ warnings -->
+                        <jvmArg>--enable-native-access=javafx.graphics,javafx.controls,javafx.fxml</jvmArg>
                         <jvmArg>--add-modules=javafx.controls,javafx.fxml</jvmArg>
                     </jvmArgs>
                 </configuration>
@@ -93,6 +102,7 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
+                    <release>21</release>
                 </configuration>
             </plugin>
         </plugins>

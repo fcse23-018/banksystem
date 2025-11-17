@@ -1,7 +1,9 @@
-# Compiled class file
+
+# Compiled class files
+target/
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -18,10 +20,30 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# External dependencies
+/lib/
+
+# IntelliJ IDEA specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse specific files
 .classpath
 .project
-.settings
+.settings/
 
-target/
-.idea
-*.iml
+# NetBeans specific files
+nbproject/
+build/
+dist/
+
+# VSCode specific files
+.vscode/
+
+# IDX specific files
+.idx/
+
+# Supabase config file
+src/main/resources/config.properties
