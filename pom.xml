@@ -75,6 +75,13 @@
             <version>1.18.34</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Supabase Java Client -->
+        <dependency>
+            <groupId>io.supabase</groupId>
+            <artifactId>supabase-client</artifactId>
+            <version>0.2.11</version>
+        </dependency>
     </dependencies>
 
     <build>
