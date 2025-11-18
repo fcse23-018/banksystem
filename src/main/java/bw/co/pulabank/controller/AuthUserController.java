@@ -1,7 +1,6 @@
 package bw.co.pulabank.controller;
 
-import bw.co.pulabank.model.UserRole;
-import bw.co.pulabank.model.Customer;
+// Imports removed; this is a controller placeholder.
 
 /**
  * Placeholder controller class to match naming conventions.
