@@ -15,9 +15,11 @@ public class Account {
     
     private AccountType accountType;
     private String accountNumber;        // e.g., 600012345678
+    @Builder.Default
     private Double balance = 0.0;
     
     // AM-005 & AM-006
+    @Builder.Default
     private AccountStatus status = AccountStatus.PENDING;
     
     private Double interestRate;

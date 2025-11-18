@@ -24,6 +24,7 @@ public class Customer {
     private String phone;
     
     // Status flow: pending → active → suspended
+    @Builder.Default
     private CustomerStatus status = CustomerStatus.PENDING;
     
     private LocalDateTime createdAt;
