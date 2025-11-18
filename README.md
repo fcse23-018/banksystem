@@ -48,6 +48,26 @@ Put your Supabase password in src/main/resources/config.properties
 Run:
 bash
 mvn javafx:run
+
+Platform notes
+- JavaFX includes native libraries per operating system. The project sets a configurable property `javafx.platform` in `pom.xml` (default `linux`).
+- To run on Linux (default):
+
+```bash
+mvn -DskipTests=false -Djavafx.platform=linux javafx:run
+```
+
+- To run on Windows set the platform to `win` (or use the following on PowerShell):
+
+```powershell
+mvn -DskipTests=false -Djavafx.platform=win javafx:run
+```
+
+Headless / container notes
+- If you run inside a headless container without an X server, the GUI won't be visible. Options:
+	- Run locally on your host (recommended).
+	- Use X11 forwarding (SSH -X) / expose host X to the container.
+	- Use a virtual framebuffer: `xvfb-run mvn -Djavafx.platform=linux javafx:run` (GUI still not visible unless forwarded).
 Security Best Practices (Bank of Botswana Approved)
 Password never in code – stored only in config.properties
 BCrypt hashing with 12 rounds
