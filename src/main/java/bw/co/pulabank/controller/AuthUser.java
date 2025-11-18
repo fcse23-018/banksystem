@@ -1,9 +1,10 @@
-package bw.co.pulabank.model;
+package bw.co.pulabank.controller;
 
 import lombok.*;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class AuthUser {
+// Simple controller placeholder removed; AuthUser model now lives in bw.co.pulabank.model package
+public class AuthUserController {
     private String email;
     private UserRole role;
     private Customer customer;  // Only for customers
@@ -18,6 +19,6 @@ public class AuthUser {
     }
 
     public boolean canApproveAccounts() {
-        return role == UserRole.STAFF_MANAGER || role == UserRole.STAFF_ADMIN;
+        return role != null && role.canApproveAccounts();
     }
 }
