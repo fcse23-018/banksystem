@@ -76,12 +76,15 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Supabase Java Client -->
+        <!-- Supabase Java Client (optional) - local stub provided when dependency is absent -->
+        <!-- Remove the following dependency to use an embedded stub for local builds: -->
+        <!--
         <dependency>
             <groupId>io.supabase</groupId>
             <artifactId>supabase-client</artifactId>
             <version>0.2.11</version>
         </dependency>
+        -->
     </dependencies>
 
     <build>
