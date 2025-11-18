@@ -16,16 +16,34 @@ public class DatabaseUtil {
     private static final String DB_USERNAME = Config.get("db.username");
     private static final String DB_PASSWORD = Config.get("db.password");
 
+    // A test hook to override connection creation in unit tests.
+    // If non-null, this provider will be used instead of DriverManager.
+    private static volatile java.util.concurrent.Callable<java.sql.Connection> connectionProvider = null;
+
     /**
      * Returns a live connection to your real Supabase PostgreSQL database
      */
     public static Connection getConnection() throws SQLException {
         try {
+            if (connectionProvider != null) {
+                try {
+                    return connectionProvider.call();
+                } catch (Exception e) {
+                    throw new SQLException("Failed to obtain connection from provider", e);
+                }
+            }
             // PostgreSQL driver auto-loaded in Java 21+
             return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
         } catch (Exception e) {
             throw new SQLException("Failed to connect to Pula Bank Supabase database", e);
         }
+    }
+
+    /**
+     * Test-only: override the connection provider. Pass null to reset to default behavior.
+     */
+    public static void setConnectionProvider(java.util.concurrent.Callable<Connection> provider) {
+        connectionProvider = provider;
     }
 
     // Test it anytime – run this main method

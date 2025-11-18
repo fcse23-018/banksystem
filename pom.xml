@@ -92,6 +92,14 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- Mockito for mocking, including static mocking via mockito-inline -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- note: mockito-inline removed; tests use DatabaseUtil injection hook instead -->
     </dependencies>
 
     <build>
