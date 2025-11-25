@@ -1,0 +1,82 @@
+You are a Senior Java Architect and University Lecturer who has marked CSE202 at Botswana Accountancy College for 10+ years. You know EXACTLY what the examiner wants for full marks in Part B (60%).
+
+Generate the COMPLETE, FULLY WORKING, PRODUCTION-QUALITY Part B implementation of the Banking System as required by the official assignment document (hand-out 12 Sep 2025, deadline 17 Nov 2025) and Donovan Ntsima's submitted Part A (FCSE23-018).
+
+CRITICAL REQUIREMENTS — YOU MUST IMPLEMENT ALL OF THESE OR IT WILL FAIL:
+
+1. Exact Match to Donovan's Part A
+   - Use his exact class names, attributes, and relationships from his Class Diagram (Page 9–11 of his PDF)
+   - Abstract Account, SavingsAccount (no withdrawals), InvestmentAccount (min BWP500, 5% interest), ChequeAccount (needs employer), InterestBearing interface, Customer with List<Account>, Transaction class
+   - Composition: Customer 1 --- * Account
+   - Polymorphism via InterestBearing.calculateInterest()
+
+2. Full Functionality (Must Work End-to-End)
+   - Customer Registration + Login (with password)
+   - Open Savings, Investment (enforce min 500), or Cheque account (must input employer name & address)
+   - Deposit to any account
+   - Withdraw only from Investment or Cheque (Savings blocked with clear message)
+   - View all accounts in dashboard with balance and type
+   - View full transaction history per account
+   - Monthly interest automatically calculated and displayed (0.05% Savings, 5% Investment)
+   - All data persisted in database
+
+3. GUI (JavaFX + FXML) — Must Be Professional & User-Friendly (10/10 marks)
+   Create these exact screens with clean, modern layout:
+   - LoginView.fxml (username/password + Register button)
+   - RegisterView.fxml (First Name, Surname, Address, ID, Password)
+   - DashboardView.fxml (Welcome + ListView of accounts + buttons: Open Account, Deposit, Withdraw, History, Logout)
+   - OpenAccountView.fxml (ComboBox: Savings/Investment/Cheque + Initial Deposit field + Employer fields (shown only for Cheque))
+   - DepositView.fxml (Select account + Amount field)
+   - WithdrawView.fxml (Select account + Amount + shows "Not allowed" for Savings)
+   - TransactionHistoryView.fxml (TableView with Date, Type, Amount, Balance After)
+   - All views use proper JavaFX controls, labels, error alerts, success messages
+
+4. Perfect MVC + DAO Architecture (Zero Coupling)
+   - View (.fxml + View classes) → Controller → Domain Model → DAO → H2 Database
+   - NO business logic in GUI
+   - NO SQL or GUI code in model classes
+
+5. Database (H2 Embedded) — Full Persistence (10/10 marks)
+   - Tables: CUSTOMERS, ACCOUNTS (with discriminator column for type), TRANSACTIONS
+   - On startup: auto-create schema + insert 10+ sample records (3 customers with mixed account types)
+   - Full CRUD via DAO classes
+   - Polymorphic account loading (read correct subclass from DB)
+
+6. Controllers (10/10 marks)
+   - LoginController, RegisterController, DashboardController, AccountController, TransactionController
+   - Input validation, error handling, success messages via Alert
+   - Proper navigation between scenes
+
+7. Project Structure (GitHub Codespaces Ready)
+   - Maven project
+   - pom.xml with JavaFX 17+, H2, JDBC dependencies
+   - src/main/java with packages: model, dao, controller, view, util
+   - src/main/resources/fxml and schema.sql
+   - MainApp.java as entry point
+   - README.md with "How to run in GitHub Codespaces"
+
+8. Integration & Testing Report (10/10 marks)
+   - Include a detailed PDF/Markdown report with:
+     • Screenshots of: Login → Register → Open all 3 account types → Deposit → Attempt withdraw on Savings (blocked) → Successful withdraw → Transaction history → H2 Console showing data
+     • Description of 5 full user journeys that work end-to-end
+
+9. Final Deliverables You Must Output (in this order)
+   A. Complete folder structure
+   B. All Java source code (fully commented with JavaDoc)
+   C. All FXML files (clean, well-structured)
+   D. pom.xml
+   E. schema.sql with 10+ sample records
+   F. README.md
+   G. Integration Test Report (text + placeholder screenshot descriptions)
+   H. Final Presentation Script (what to demo in 5 minutes on Nov 24–28)
+
+10. Quality & Originality
+    - 100% original code — zero plagiarism
+    - Professional naming, formatting, comments
+    - Full exception handling
+    - User-friendly error messages
+    - Must compile and run perfectly in GitHub Codespaces
+
+This submission must be the single best Part B the lecturer has ever seen — aiming for 58–60/60 and overall assignment mark of 95%+.
+
+Generate everything now. Do not summarize — output full code and files.
