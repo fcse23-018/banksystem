@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="com.banking.controller.DashboardController"
+            style="-fx-background-color: #ecf0f1;">
+    
+    <top>
+        <VBox style="-fx-background-color: #34495e; -fx-padding: 20;">
+            <Label fx:id="welcomeLabel" text="Welcome!" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                <font>
+                    <Font size="24"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    
+    <left>
+        <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 15;">
+            <Label text="My Accounts" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <ListView fx:id="accountListView" prefWidth="300" prefHeight="250"/>
+            
+            <Separator/>
+            
+            <VBox spacing="10">
+                <Button fx:id="openAccountButton" text="Open Account" onAction="#handleOpenAccount" 
+                        maxWidth="Infinity" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <Button fx:id="depositButton" text="Deposit" onAction="#handleDeposit" 
+                        maxWidth="Infinity" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                <Button fx:id="withdrawButton" text="Withdraw" onAction="#handleWithdraw" 
+                        maxWidth="Infinity" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                <Button fx:id="historyButton" text="Transaction History" onAction="#handleHistory" 
+                        maxWidth="Infinity" style="-fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+                <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefresh" 
+                        maxWidth="Infinity" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout" 
+                        maxWidth="Infinity" style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <center>
+        <VBox style="-fx-padding: 20; -fx-background-color: white;">
+            <BorderPane.margin>
+                <Insets top="0" right="15" bottom="15" left="15"/>
+            </BorderPane.margin>
+            
+            <Label text="Account Details" style="-fx-font-weight: bold; -fx-font-size: 18px;"/>
+            <Separator/>
+            <TextArea fx:id="accountDetailsArea" editable="false" wrapText="true" 
+                      prefHeight="400" style="-fx-font-family: monospace;"/>
+        </VBox>
+    </center>
+</BorderPane>

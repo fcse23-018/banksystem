@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.banking.controller.AccountController"
+      alignment="CENTER" spacing="20" style="-fx-background-color: #f0f0f0;">
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+    
+    <Label text="Open New Account" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+        <font>
+            <Font size="22"/>
+        </font>
+    </Label>
+    
+    <Separator prefWidth="350"/>
+    
+    <GridPane hgap="10" vgap="15" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120" prefWidth="140"/>
+            <ColumnConstraints minWidth="200" prefWidth="220"/>
+        </columnConstraints>
+        
+        <Label text="Account Type:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="accountTypeComboBox" promptText="Select account type" 
+                  prefWidth="220" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        
+        <Label text="Initial Deposit:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="initialDepositField" promptText="Enter amount (BWP)" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        
+        <Label fx:id="employerLabel" text="Employer Info:" GridPane.columnIndex="0" GridPane.rowIndex="2" 
+               visible="false" managed="false"/>
+        <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="employerCompanyField" promptText="Company name" 
+                       visible="false" managed="false"/>
+            <TextField fx:id="employerAddressField" promptText="Company address" 
+                       visible="false" managed="false"/>
+        </VBox>
+    </GridPane>
+    
+    <Label text="Note: Investment account requires minimum BWP 500" 
+           style="-fx-font-size: 10px; -fx-text-fill: #7f8c8d;"/>
+    <Label text="Cheque account requires employment information" 
+           style="-fx-font-size: 10px; -fx-text-fill: #7f8c8d;"/>
+    
+    <HBox spacing="15" alignment="CENTER">
+        <Button fx:id="submitButton" text="Open Account" onAction="#handleOpenAccount" 
+                prefWidth="130" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px;"/>
+        <Button fx:id="cancelButton" text="Cancel" onAction="#handleCancel" 
+                prefWidth="130" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14px;"/>
+    </HBox>
+</VBox>
