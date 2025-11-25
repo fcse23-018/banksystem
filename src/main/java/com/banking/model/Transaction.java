@@ -14,9 +14,10 @@ public class Transaction {
     private String transactionID;
     private double amount;
     private Date date;
-    private String type; // "DEPOSIT", "WITHDRAWAL", "INTEREST"
+    private String type; // "DEPOSIT", "WITHDRAWAL", "INTEREST", "TRANSFER"
     private Account account;
     private double balanceAfter;
+    private String transferToAccount; // For transfers, the recipient account number
     
     /**
      * Default constructor for Transaction.
@@ -99,9 +100,27 @@ public class Transaction {
     }
     
     /**
+     * Gets the transfer recipient account number.
+     * 
+     * @return the recipient account number (null if not a transfer)
+     */
+    public String getTransferToAccount() {
+        return transferToAccount;
+    }
+    
+    /**
+     * Sets the transfer recipient account number.
+     * 
+     * @param transferToAccount the recipient account number
+     */
+    public void setTransferToAccount(String transferToAccount) {
+        this.transferToAccount = transferToAccount;
+    }
+    
+    /**
      * Gets the transaction type.
      * 
-     * @return the type (DEPOSIT, WITHDRAWAL, INTEREST)
+     * @return the type (DEPOSIT, WITHDRAWAL, INTEREST, TRANSFER)
      */
     public String getType() {
         return type;

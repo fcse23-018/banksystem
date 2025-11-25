@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.banking.controller.AccountController"
+      alignment="CENTER" spacing="20" style="-fx-background-color: #f0f0f0;">
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+    
+    <Label text="Transfer Funds" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+        <font>
+            <Font size="22"/>
+        </font>
+    </Label>
+    
+    <Separator prefWidth="350"/>
+    
+    <GridPane hgap="10" vgap="15" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints minWidth="140" prefWidth="160"/>
+            <ColumnConstraints minWidth="200" prefWidth="220"/>
+        </columnConstraints>
+        
+        <Label text="From Account:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="fromAccountComboBox" promptText="Select source account" 
+                  prefWidth="220" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        
+        <Label text="To Account Number:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="toAccountField" promptText="Enter recipient account" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        
+        <Label text="Amount (BWP):" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="amountField" promptText="Enter transfer amount" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        
+        <Label text="PIN (4 digits):" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <PasswordField fx:id="pinField" promptText="Enter your PIN" 
+                       GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    </GridPane>
+    
+    <Label text="Note: PIN required for security. Transfer from Investment/Cheque accounts only." 
+           style="-fx-font-size: 10px; -fx-text-fill: #7f8c8d;"/>
+    
+    <HBox spacing="15" alignment="CENTER">
+        <Button fx:id="transferButton" text="Transfer" onAction="#handleTransfer" 
+                prefWidth="120" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 14px;"/>
+        <Button fx:id="cancelButton" text="Cancel" onAction="#handleCancel" 
+                prefWidth="120" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14px;"/>
+    </HBox>
+</VBox>

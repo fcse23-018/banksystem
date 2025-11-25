@@ -26,7 +26,7 @@ public class CustomerDAO {
      * @return true if creation successful, false otherwise
      */
     public boolean createCustomer(Customer customer) {
-        String sql = "INSERT INTO CUSTOMERS (customer_id, first_name, surname, address, password) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CUSTOMERS (customer_id, first_name, surname, address, password, pin) VALUES (?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -36,6 +36,7 @@ public class CustomerDAO {
             pstmt.setString(3, customer.getSurname());
             pstmt.setString(4, customer.getAddress());
             pstmt.setString(5, customer.getPassword());
+            pstmt.setString(6, customer.getPin() != null ? customer.getPin() : "1234");
             
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
@@ -201,7 +202,8 @@ public class CustomerDAO {
             rs.getString("first_name"),
             rs.getString("surname"),
             rs.getString("address"),
-            rs.getString("password")
+            rs.getString("password"),
+            rs.getString("pin")
         );
     }
 }

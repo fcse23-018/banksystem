@@ -1,8 +1,14 @@
-# Banking System - JavaFX Desktop Application
+# Banking System - JavaFX Desktop Application (Enhanced Version 2.0)
 
 ## Overview
 
-This is a complete banking system desktop application built with JavaFX and PostgreSQL, designed for the CSE202 Object-Oriented Analysis & Design course. The system implements a full-featured banking solution with customer management, multiple account types (Savings, Investment, Cheque), transaction processing, and automated interest calculations. 
+This is a complete banking system desktop application built with JavaFX and PostgreSQL, designed for the CSE202 Object-Oriented Analysis & Design course. The system implements a full-featured banking solution with customer management, multiple account types (Savings, Investment, Cheque), transaction processing, automated interest calculations, **fund transfers with PIN confirmation**, and **admin dashboard**.
+
+**NEW FEATURES (v2.0)**:
+- ✅ **Transfer Funds**: Transfer money between accounts with PIN confirmation
+- ✅ **PIN Security**: 4-digit PIN required for all transfers
+- ✅ **Admin Panel**: Separate admin login with dashboard showing system statistics
+- ✅ **Dual Authentication**: Customer and Admin login support
 
 **CRITICAL**: This is a **desktop application** that requires a graphical display environment and **cannot run in cloud-based IDEs** like Replit or GitHub Codespaces. It must be executed on a local machine with Java JDK 17+, Maven 3.6+, and JavaFX support.
 
@@ -105,6 +111,11 @@ Auto-initialization on first run with sample data: 5 customers, 12 accounts, 20+
 - Maven must be available in PATH
 
 ### Sample Credentials
-Test login for development:
-- Customer ID: `CUST001`
+**Customer Login**:
+- Customer ID: `CUST001` (or CUST002-CUST005)
 - Password: `password123`
+- PIN: `1234` (for transfers)
+
+**Admin Login**:
+- Username: `admin`
+- Password: `admin123`

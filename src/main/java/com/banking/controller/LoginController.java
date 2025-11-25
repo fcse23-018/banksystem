@@ -1,7 +1,9 @@
 package com.banking.controller;
 
 import com.banking.dao.CustomerDAO;
+import com.banking.dao.AdminDAO;
 import com.banking.model.Customer;
+import com.banking.model.Admin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,14 +17,15 @@ import java.io.IOException;
 /**
  * Controller for the Login View.
  * Handles user authentication and navigation to registration.
+ * Supports both customer and admin login.
  * 
  * @author Donovan Ntsima (FCSE23-018)
- * @version 1.0
+ * @version 2.0
  */
 public class LoginController {
     
     @FXML
-    private TextField customerIDField;
+    private TextField usernameField;
     
     @FXML
     private PasswordField passwordField;
@@ -36,7 +39,18 @@ public class LoginController {
     @FXML
     private Label statusLabel;
     
+    @FXML
+    private Label usernameLabel;
+    
+    @FXML
+    private RadioButton customerRadio;
+    
+    @FXML
+    private RadioButton adminRadio;
+    
     private CustomerDAO customerDAO;
+    private AdminDAO adminDAO;
+    private ToggleGroup roleGroup;
     
     /**
      * Initializes the controller.
@@ -45,6 +59,28 @@ public class LoginController {
     @FXML
     public void initialize() {
         customerDAO = new CustomerDAO();
+        adminDAO = new AdminDAO();
+        
+        // Group radio buttons
+        roleGroup = new ToggleGroup();
+        customerRadio.setToggleGroup(roleGroup);
+        adminRadio.setToggleGroup(roleGroup);
+    }
+    
+    /**
+     * Handles role selection change.
+     */
+    @FXML
+    private void handleRoleChange() {
+        if (customerRadio.isSelected()) {
+            usernameLabel.setText("Customer ID:");
+            usernameField.setPromptText("Enter Customer ID");
+            registerButton.setVisible(true);
+        } else {
+            usernameLabel.setText("Username:");
+            usernameField.setPromptText("Enter Admin Username");
+            registerButton.setVisible(false);
+        }
     }
     
     /**
@@ -55,30 +91,52 @@ public class LoginController {
      */
     @FXML
     private void handleLogin(ActionEvent event) {
-        String customerID = customerIDField.getText().trim();
+        String username = usernameField.getText().trim();
         String password = passwordField.getText();
         
-        if (customerID.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Login Error", "Please enter both Customer ID and Password");
+        if (username.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Login Error", "Please enter both username/ID and password");
             return;
         }
         
-        Customer customer = customerDAO.authenticate(customerID, password);
-        
-        if (customer != null) {
-            showAlert(Alert.AlertType.INFORMATION, "Login Successful", 
-                "Welcome back, " + customer.getFullName() + "!");
+        if (customerRadio.isSelected()) {
+            // Customer login
+            Customer customer = customerDAO.authenticate(username, password);
             
-            try {
-                openDashboard(customer);
-            } catch (IOException e) {
-                showAlert(Alert.AlertType.ERROR, "Navigation Error", 
-                    "Could not open dashboard: " + e.getMessage());
+            if (customer != null) {
+                showAlert(Alert.AlertType.INFORMATION, "Login Successful", 
+                    "Welcome back, " + customer.getFullName() + "!");
+                
+                try {
+                    openDashboard(customer);
+                } catch (IOException e) {
+                    showAlert(Alert.AlertType.ERROR, "Navigation Error", 
+                        "Could not open dashboard: " + e.getMessage());
+                }
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Failed", 
+                    "Invalid Customer ID or Password");
+                statusLabel.setText("Login failed. Please try again.");
             }
         } else {
-            showAlert(Alert.AlertType.ERROR, "Login Failed", 
-                "Invalid Customer ID or Password");
-            statusLabel.setText("Login failed. Please try again.");
+            // Admin login
+            Admin admin = adminDAO.authenticate(username, password);
+            
+            if (admin != null) {
+                showAlert(Alert.AlertType.INFORMATION, "Login Successful", 
+                    "Welcome, " + admin.getFullName() + "!");
+                
+                try {
+                    openAdminDashboard(admin);
+                } catch (IOException e) {
+                    showAlert(Alert.AlertType.ERROR, "Navigation Error", 
+                        "Could not open admin dashboard: " + e.getMessage());
+                }
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Failed", 
+                    "Invalid Admin Username or Password");
+                statusLabel.setText("Login failed. Please try again.");
+            }
         }
     }
     
@@ -119,6 +177,24 @@ public class LoginController {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.setScene(new Scene(root, 800, 600));
         stage.setTitle("Banking Dashboard - " + customer.getFullName());
+    }
+    
+    /**
+     * Opens the admin dashboard view for the logged-in admin.
+     * 
+     * @param admin the authenticated admin
+     * @throws IOException if admin dashboard FXML cannot be loaded
+     */
+    private void openAdminDashboard(Admin admin) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AdminDashboardView.fxml"));
+        Parent root = loader.load();
+        
+        AdminController adminController = loader.getController();
+        adminController.setAdmin(admin);
+        
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.setScene(new Scene(root, 900, 650));
+        stage.setTitle("Admin Dashboard - " + admin.getFullName());
     }
     
     /**

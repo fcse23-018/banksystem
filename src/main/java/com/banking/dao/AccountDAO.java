@@ -162,6 +162,72 @@ public class AccountDAO {
     }
     
     /**
+     * Transfers funds from one account to another.
+     * Uses database transaction to ensure atomicity.
+     * 
+     * @param fromAccount the source account number
+     * @param toAccount the destination account number
+     * @param amount the amount to transfer
+     * @return true if transfer successful, false otherwise
+     */
+    public boolean transferFunds(String fromAccount, String toAccount, double amount) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false); // Start transaction
+            
+            // Deduct from source account
+            String deductSql = "UPDATE ACCOUNTS SET balance = balance - ? WHERE account_number = ? AND balance >= ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(deductSql)) {
+                pstmt.setDouble(1, amount);
+                pstmt.setString(2, fromAccount);
+                pstmt.setDouble(3, amount);
+                
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected == 0) {
+                    conn.rollback();
+                    return false; // Insufficient funds
+                }
+            }
+            
+            // Add to destination account
+            String addSql = "UPDATE ACCOUNTS SET balance = balance + ? WHERE account_number = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(addSql)) {
+                pstmt.setDouble(1, amount);
+                pstmt.setString(2, toAccount);
+                
+                int rowsAffected = pstmt.executeUpdate();
+                if (rowsAffected == 0) {
+                    conn.rollback();
+                    return false; // Destination account not found
+                }
+            }
+            
+            conn.commit(); // Commit transaction
+            return true;
+            
+        } catch (SQLException e) {
+            System.err.println("Error transferring funds: " + e.getMessage());
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    System.err.println("Error rolling back transaction: " + ex.getMessage());
+                }
+            }
+            return false;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                } catch (SQLException e) {
+                    System.err.println("Error resetting auto-commit: " + e.getMessage());
+                }
+            }
+        }
+    }
+    
+    /**
      * Checks if an account number already exists.
      * 
      * @param accountNumber the account number to check

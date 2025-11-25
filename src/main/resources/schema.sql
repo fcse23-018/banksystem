@@ -14,6 +14,16 @@ CREATE TABLE CUSTOMERS (
     surname VARCHAR(100) NOT NULL,
     address TEXT NOT NULL,
     password VARCHAR(255) NOT NULL,
+    pin VARCHAR(4) NOT NULL DEFAULT '1234',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create ADMINS table
+CREATE TABLE ADMINS (
+    admin_id VARCHAR(50) PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(200) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -37,18 +47,24 @@ CREATE TABLE TRANSACTIONS (
     amount DECIMAL(15, 2) NOT NULL,
     transaction_type VARCHAR(20) NOT NULL,
     balance_after DECIMAL(15, 2) NOT NULL,
+    transfer_to_account VARCHAR(50),
     transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (account_number) REFERENCES ACCOUNTS(account_number) ON DELETE CASCADE
 );
 
 -- Insert sample customer data (10+ records as required)
--- Passwords are BCrypt hashed for "password123"
-INSERT INTO CUSTOMERS (customer_id, first_name, surname, address, password) VALUES
-('CUST001', 'John', 'Doe', '123 Main Street, Gaborone', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u'),
-('CUST002', 'Jane', 'Smith', '456 Oak Avenue, Francistown', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u'),
-('CUST003', 'Michael', 'Johnson', '789 Pine Road, Maun', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u'),
-('CUST004', 'Sarah', 'Williams', '321 Elm Street, Kasane', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u'),
-('CUST005', 'David', 'Brown', '654 Maple Drive, Palapye', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u');
+-- Passwords are BCrypt hashed for "password123", PIN is "1234" for all
+INSERT INTO CUSTOMERS (customer_id, first_name, surname, address, password, pin) VALUES
+('CUST001', 'John', 'Doe', '123 Main Street, Gaborone', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u', '1234'),
+('CUST002', 'Jane', 'Smith', '456 Oak Avenue, Francistown', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u', '1234'),
+('CUST003', 'Michael', 'Johnson', '789 Pine Road, Maun', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u', '1234'),
+('CUST004', 'Sarah', 'Williams', '321 Elm Street, Kasane', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u', '1234'),
+('CUST005', 'David', 'Brown', '654 Maple Drive, Palapye', '$2a$12$7E1nPLCWvTwH3k5bFqZx5eR2vK8PnZxTt6yH4xF5mJ8nL9pR3sT6u', '1234');
+
+-- Insert sample admin data
+-- Password is BCrypt hashed for "admin123"
+INSERT INTO ADMINS (admin_id, username, password, full_name) VALUES
+('ADMIN001', 'admin', '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5GyYVvMpYq0yO', 'System Administrator');
 
 -- Insert sample account data (mixed account types for each customer)
 INSERT INTO ACCOUNTS (account_number, customer_id, account_type, balance, branch, employer_company, employer_address) VALUES

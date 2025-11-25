@@ -227,6 +227,37 @@ public class DashboardController {
     }
     
     /**
+     * Handles transfer button click.
+     * Opens the transfer funds view.
+     * 
+     * @param event the action event
+     */
+    @FXML
+    private void handleTransfer(ActionEvent event) {
+        if (customer.getAccounts().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "No Accounts", 
+                "Please open an account first before making transfers.");
+            return;
+        }
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TransferView.fxml"));
+            Parent root = loader.load();
+            
+            AccountController accountController = loader.getController();
+            accountController.setCustomerAndDashboard(customer, this);
+            
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Transfer Funds");
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", 
+                "Could not open transfer view: " + e.getMessage());
+        }
+    }
+    
+    /**
      * Handles transaction history button click.
      * Opens the transaction history view.
      * 

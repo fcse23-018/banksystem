@@ -312,6 +312,92 @@ public class AccountController {
     }
     
     /**
+     * Handles transfer funds button click with PIN confirmation.
+     * 
+     * @param event the action event
+     */
+    @FXML
+    private void handleTransfer(ActionEvent event) {
+        try {
+            ComboBox<String> fromAccountComboBox = (ComboBox<String>) submitButton.getScene().lookup("#fromAccountComboBox");
+            TextField toAccountField = (TextField) submitButton.getScene().lookup("#toAccountField");
+            TextField amountField = (TextField) submitButton.getScene().lookup("#amountField");
+            PasswordField pinField = (PasswordField) submitButton.getScene().lookup("#pinField");
+            
+            if (fromAccountComboBox == null || fromAccountComboBox.getValue() == null) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "Please select a source account.");
+                return;
+            }
+            
+            String toAccount = toAccountField.getText().trim();
+            String amountStr = amountField.getText().trim();
+            String pin = pinField.getText().trim();
+            
+            if (toAccount.isEmpty() || amountStr.isEmpty() || pin.isEmpty()) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required.");
+                return;
+            }
+            
+            // Validate PIN
+            if (!customer.validatePin(pin)) {
+                showAlert(Alert.AlertType.ERROR, "Invalid PIN", "The PIN you entered is incorrect.");
+                return;
+            }
+            
+            double amount = Double.parseDouble(amountStr);
+            if (amount <= 0) {
+                showAlert(Alert.AlertType.ERROR, "Invalid Amount", "Amount must be greater than zero.");
+                return;
+            }
+            
+            int selectedIndex = fromAccountComboBox.getSelectionModel().getSelectedIndex();
+            Account fromAccount = customer.getAccounts().get(selectedIndex);
+            
+            if (fromAccount instanceof SavingsAccount) {
+                showAlert(Alert.AlertType.WARNING, "Not Allowed", 
+                    "Transfers from Savings accounts are not allowed.\nUse Investment or Cheque account.");
+                return;
+            }
+            
+            if (fromAccount.getBalance() < amount) {
+                showAlert(Alert.AlertType.ERROR, "Insufficient Funds", 
+                    String.format("Available balance: BWP %.2f", fromAccount.getBalance()));
+                return;
+            }
+            
+            // Perform transfer
+            if (accountDAO.transferFunds(fromAccount.getAccountNumber(), toAccount, amount)) {
+                fromAccount.withdraw(amount);
+                
+                Transaction transaction = new Transaction(
+                    TransactionDAO.generateTransactionID(),
+                    amount,
+                    "TRANSFER",
+                    fromAccount,
+                    fromAccount.getBalance()
+                );
+                transaction.setTransferToAccount(toAccount);
+                transactionDAO.createTransaction(transaction);
+                
+                showAlert(Alert.AlertType.INFORMATION, "Success", 
+                    String.format("Transferred BWP %.2f to %s successfully!\nNew Balance: BWP %.2f", 
+                    amount, toAccount, fromAccount.getBalance()));
+                
+                dashboardController.refresh();
+                closeWindow();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Transfer Failed", 
+                    "Transfer failed. Please check recipient account number and try again.");
+            }
+            
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid numeric amount.");
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Transfer Error", e.getMessage());
+        }
+    }
+    
+    /**
      * Handles cancel button click.
      * Closes the current window.
      * 

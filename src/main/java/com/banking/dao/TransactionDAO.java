@@ -25,7 +25,7 @@ public class TransactionDAO {
      * @return true if creation successful, false otherwise
      */
     public boolean createTransaction(Transaction transaction) {
-        String sql = "INSERT INTO TRANSACTIONS (transaction_id, account_number, amount, transaction_type, balance_after) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO TRANSACTIONS (transaction_id, account_number, amount, transaction_type, balance_after, transfer_to_account) VALUES (?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -35,6 +35,7 @@ public class TransactionDAO {
             pstmt.setDouble(3, transaction.getAmount());
             pstmt.setString(4, transaction.getType());
             pstmt.setDouble(5, transaction.getBalanceAfter());
+            pstmt.setString(6, transaction.getTransferToAccount());
             
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;

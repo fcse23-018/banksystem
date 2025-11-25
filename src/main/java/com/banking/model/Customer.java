@@ -17,6 +17,7 @@ public class Customer {
     private String surname;
     private String address;
     private String password;
+    private String pin;
     private List<Account> accounts;
     
     /**
@@ -43,6 +44,28 @@ public class Customer {
         this.surname = surname;
         this.address = address;
         this.password = password;
+        this.pin = "1234";
+        this.accounts = new ArrayList<>();
+    }
+    
+    /**
+     * Full parameterized constructor for Customer including PIN.
+     * 
+     * @param customerID the unique customer ID
+     * @param firstName the customer's first name
+     * @param surname the customer's surname
+     * @param address the customer's address
+     * @param password the customer's hashed password
+     * @param pin the customer's 4-digit PIN
+     */
+    public Customer(String customerID, String firstName, String surname, 
+                   String address, String password, String pin) {
+        this.customerID = customerID;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.address = address;
+        this.password = password;
+        this.pin = pin;
         this.accounts = new ArrayList<>();
     }
     
@@ -143,6 +166,34 @@ public class Customer {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    /**
+     * Gets the PIN.
+     * 
+     * @return the 4-digit PIN
+     */
+    public String getPin() {
+        return pin;
+    }
+    
+    /**
+     * Sets the PIN.
+     * 
+     * @param pin the 4-digit PIN to set
+     */
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+    
+    /**
+     * Validates the provided PIN against the customer's PIN.
+     * 
+     * @param inputPin the PIN to validate
+     * @return true if PIN matches, false otherwise
+     */
+    public boolean validatePin(String inputPin) {
+        return this.pin != null && this.pin.equals(inputPin);
     }
     
     /**
