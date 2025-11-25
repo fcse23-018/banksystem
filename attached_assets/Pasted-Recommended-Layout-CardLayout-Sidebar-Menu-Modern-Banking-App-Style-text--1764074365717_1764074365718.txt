@@ -1,0 +1,118 @@
+Recommended Layout: CardLayout + Sidebar Menu (Modern Banking App Style)
+text+-------------------------------------------------------------+
+|  PulaBank                                                       X |
++-------------------------------------------------------------+
+| [Logo]    Welcome, Gaborone Customer        [Logout Button] |
++-------------------------------------------------------------+
+|                                                             |
+|   Dashboard   |                                             |
+|   Deposit     |                                             |
+|   Withdraw    |   <<<< Main Content Area changes      >>>>  |
+|   Transfer    |   based on selected menu                    |
+|   Balance     |                                             |
+|   Transactions|                                             |
+|               |                                             |
+| ----------------------------------------------------------- |
+| (Admin only)  |                                             |
+|   Customers   |                                             |
+|   Add Customer|                                             |
+|   Reports     |                                             |
++-------------------------------------------------------------+
+Detailed Screen-by-Screen Design
+1. Login Screen (First screen)
+
+Big PulaBank logo
+Fields: Username / Customer ID + Password
+Radio buttons: Login as → Customer | Admin
+Login button
+(Optional: "Forgot password")
+
+2. Customer Dashboard (After customer login)
+Sidebar Menu (Left):
+
+Dashboard (shows current balance big in center)
+Deposit
+Withdraw
+Transfer Money
+Check Balance
+Transaction History
+Logout (at bottom)
+
+Top Bar:
+
+Welcome, [Customer Name]
+Current Balance: P25,450.00
+Logout button (red)
+
+Main Pages:
+
+Deposit → Enter amount → Confirm with PIN → Success message
+Withdraw → Enter amount → Confirm PIN → (Check sufficient balance)
+Transfer → Enter recipient Account Number + Amount + PIN
+Transaction History → JTable showing Date, Type, Amount, Balance After
+
+3. Admin Dashboard (After admin login)
+Sidebar Menu (Left):
+
+Dashboard (total customers, total money in bank)
+Manage Customers
+Add New Customer
+Transaction Reports
+Logout
+
+Main Pages for Admin:
+
+Manage Customers → Searchable JTable with columns:
+| ID | Full Name | Account No | Phone | Balance | Actions (Edit/Delete/View) |
+Add New Customer → Form with:
+Full Name, Phone, ID Number, Initial Deposit, Password/PIN
+
+Reports → Filter transactions by date/customer
+
+Best Practices for Good UX
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FeatureWhy it’s importantHow to implementAlways show balanceCustomers want to see money at a glanceTop bar or Dashboard centerPIN confirmationSecurity for every transactionSmall popup asking 4-digit PINSuccess/Error popupsUser knows action worked or failedJOptionPane.showMessageDialogResponsive & clean lookProfessional feelUse JavaFX (better than Swing) or FlatLaf theme for SwingLogout in redEasy to find when user wants to exitTop-right cornerAdmin can't do transactionsSeparation of rolesHide deposit/withdraw for adminSearch bar for adminFind customer fastText field + filter table
